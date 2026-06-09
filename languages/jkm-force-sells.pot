@@ -68,6 +68,10 @@ msgstr ""
 msgid "Force Sell Settings"
 msgstr ""
 
+#: includes/class-jkmfs.php:91
+msgid "Force sell products can be added through each product edit page under the Linked products tab."
+msgstr ""
+
 #: includes/class-jkmfs.php:87
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""

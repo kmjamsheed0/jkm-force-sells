@@ -88,6 +88,7 @@ class JKMFS {
         }
         echo '<div class="wrap">';
         echo '<h2>' . esc_html__('Force Sell Settings', 'jkm-force-sells') . '</h2>';
+        echo '<div class="notice notice-info inline"><p>' . esc_html__( 'Force sell products can be added through each product edit page under the Linked products tab.', 'jkm-force-sells' ) . '</p></div>';
         ?>
         <form method="post" action="options.php">
             <?php
