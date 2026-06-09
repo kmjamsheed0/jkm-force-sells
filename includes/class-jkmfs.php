@@ -72,6 +72,9 @@ class JKMFS {
         add_action( 'woocommerce_cart_loaded_from_session', array( $public, 'jkmfs_maybe_remove_duplicate_force_sells' ) );
         add_filter( 'woocommerce_cart_item_remove_link', array( $public, 'jkmfs_cart_item_remove_link' ), 10, 2 );
         add_filter( 'woocommerce_cart_item_quantity', array( $public, 'jkmfs_cart_item_quantity' ), 10, 2 );
+        add_filter( 'woocommerce_store_api_product_quantity_editable', array( $public, 'jkmfs_store_api_product_quantity_editable' ), 10, 3 );
+        add_filter( 'woocommerce_store_api_product_quantity_minimum', array( $public, 'jkmfs_store_api_product_quantity_limit' ), 10, 3 );
+        add_filter( 'woocommerce_store_api_product_quantity_maximum', array( $public, 'jkmfs_store_api_product_quantity_limit' ), 10, 3 );
         add_action( 'woocommerce_cart_item_removed', array( $public, 'jkmfs_cart_item_removed' ), 30 );
         add_action( 'woocommerce_cart_item_restored', array( $public, 'jkmfs_cart_item_restored' ), 30 );
     }

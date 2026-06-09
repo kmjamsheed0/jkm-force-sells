@@ -16,6 +16,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 if(!class_exists('JKMFS_Public')) :
 class JKMFS_Public {
 
+    /**
+     * Cart item keys for forced products currently being removed with their parent.
+     *
+     * @var array
+     */
+    private $removing_forced_cart_item_keys = array();
+
 
     public function enqueue_public_styles_and_scripts() {
         $debug_mode = apply_filters('jkmfs_debug_mode', false);
@@ -214,7 +221,14 @@ class JKMFS_Public {
             foreach ( WC()->cart->cart_contents as $key => $value ) {
                 if ( isset( $value['forced_by'] ) && $cart_item_key === $value['forced_by'] ) {
                     $quantity = apply_filters( 'jkmfs_force_sell_update_quantity', $quantity, WC()->cart->cart_contents[ $key ] );
+
+                    if ( 0 >= $quantity ) {
+                        $this->removing_forced_cart_item_keys[ $key ] = true;
+                    }
+
                     WC()->cart->set_quantity( $key, $quantity );
+
+                    unset( $this->removing_forced_cart_item_keys[ $key ] );
                 }
             }
         }
@@ -330,6 +344,40 @@ class JKMFS_Public {
         return $quantity;
     }
 
+    /**
+     * Makes synced force sell quantities read-only in Store API cart responses.
+     *
+     * @param bool       $editable  Whether the quantity is editable.
+     * @param WC_Product $product   Product object.
+     * @param array|null $cart_item Cart item data.
+     *
+     * @return bool
+     */
+    public function jkmfs_store_api_product_quantity_editable( $editable, $product, $cart_item = null ) {
+        if ( is_array( $cart_item ) && isset( $cart_item['forced_by'] ) ) {
+            return false;
+        }
+
+        return $editable;
+    }
+
+    /**
+     * Locks synced force sell Store API quantity limits to their current quantity.
+     *
+     * @param int|float  $quantity_limit Quantity limit.
+     * @param WC_Product $product        Product object.
+     * @param array|null $cart_item      Cart item data.
+     *
+     * @return int|float
+     */
+    public function jkmfs_store_api_product_quantity_limit( $quantity_limit, $product, $cart_item = null ) {
+        if ( is_array( $cart_item ) && isset( $cart_item['forced_by'], $cart_item['quantity'] ) ) {
+            return $cart_item['quantity'];
+        }
+
+        return $quantity_limit;
+    }
+
 
     /**
      * When an item gets removed from the cart, do the same for forced sells.
@@ -337,9 +385,18 @@ class JKMFS_Public {
      * @param string $cart_item_key Cart item key.
      */
     public function jkmfs_cart_item_removed( $cart_item_key ) {
+        $removed_item = isset( WC()->cart->removed_cart_contents[ $cart_item_key ] ) ? WC()->cart->removed_cart_contents[ $cart_item_key ] : array();
+
+        if ( isset( $removed_item['forced_by'] ) && empty( $this->removing_forced_cart_item_keys[ $cart_item_key ] ) && isset( WC()->cart->cart_contents[ $removed_item['forced_by'] ] ) ) {
+            WC()->cart->restore_cart_item( $cart_item_key );
+            return;
+        }
+
         foreach ( WC()->cart->get_cart() as $key => $value ) {
             if ( isset( $value['forced_by'] ) && $cart_item_key === $value['forced_by'] ) {
+                $this->removing_forced_cart_item_keys[ $key ] = true;
                 WC()->cart->remove_cart_item( $key );
+                unset( $this->removing_forced_cart_item_keys[ $key ] );
             }
         }
     }
