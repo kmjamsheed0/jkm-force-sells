@@ -154,6 +154,10 @@ class JKMFS_Public {
      * @throws Exception Notice message when the forced item is out of stock and parent isn't added.
      */
     public function jkmfs_add_force_sell_items_to_cart( $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data ) {
+        if ( apply_filters( 'woocommerce_paypal_payments_is_simulating_cart', false ) || isset( $cart_item_data['forced_by'] ) || ! isset( WC()->cart->cart_contents[ $cart_item_key ] ) ) {
+            return;
+        }
+
         // Check if this product is forced in itself, so it can't force in others (to prevent adding in loops).
         if ( isset( WC()->cart->cart_contents[ $cart_item_key ]['forced_by'] ) ) {
             $forced_by_key = WC()->cart->cart_contents[ $cart_item_key ]['forced_by'];
@@ -207,10 +211,23 @@ class JKMFS_Public {
      * Update the forced product's quantity in the cart when the product that forcing
      * it got qty updated.
      *
-     * @param string $cart_item_key Cart item key.
-     * @param int    $quantity      Quantity.
+     * @param string       $cart_item_key Cart item key.
+     * @param int          $quantity      Quantity.
+     * @param int          $old_quantity  Previous quantity.
+     * @param WC_Cart|null $cart          Cart that triggered the update.
      */
-    public function jkmfs_update_force_sell_quantity_in_cart( $cart_item_key, $quantity = 0 ) {
+    public function jkmfs_update_force_sell_quantity_in_cart( $cart_item_key, $quantity = 0, $old_quantity = 0, $cart = null ) {
+        unset( $old_quantity );
+
+        if ( $quantity instanceof WC_Cart ) {
+            $cart     = $quantity;
+            $quantity = 0;
+        }
+
+        if ( ( $cart instanceof WC_Cart && $cart !== WC()->cart ) || apply_filters( 'woocommerce_paypal_payments_is_simulating_cart', false ) ) {
+            return;
+        }
+
         if ( ! empty( WC()->cart->cart_contents[ $cart_item_key ] ) ) {
             if ( 0 === $quantity || 0 > $quantity ) {
                 $quantity = 0;
@@ -382,9 +399,14 @@ class JKMFS_Public {
     /**
      * When an item gets removed from the cart, do the same for forced sells.
      *
-     * @param string $cart_item_key Cart item key.
+     * @param string  $cart_item_key Cart item key.
+     * @param WC_Cart $cart          Cart that removed the item.
      */
-    public function jkmfs_cart_item_removed( $cart_item_key ) {
+    public function jkmfs_cart_item_removed( $cart_item_key, $cart ) {
+        if ( $cart !== WC()->cart || apply_filters( 'woocommerce_paypal_payments_is_simulating_cart', false ) ) {
+            return;
+        }
+
         $removed_item = isset( WC()->cart->removed_cart_contents[ $cart_item_key ] ) ? WC()->cart->removed_cart_contents[ $cart_item_key ] : array();
 
         if ( isset( $removed_item['forced_by'] ) && empty( $this->removing_forced_cart_item_keys[ $cart_item_key ] ) && isset( WC()->cart->cart_contents[ $removed_item['forced_by'] ] ) ) {
@@ -404,9 +426,14 @@ class JKMFS_Public {
     /**
      * When an item gets removed from the cart, do the same for forced sells.
      *
-     * @param string $cart_item_key Cart item key.
+     * @param string  $cart_item_key Cart item key.
+     * @param WC_Cart $cart          Cart that restored the item.
      */
-    public function jkmfs_cart_item_restored( $cart_item_key ) {
+    public function jkmfs_cart_item_restored( $cart_item_key, $cart ) {
+        if ( $cart !== WC()->cart || apply_filters( 'woocommerce_paypal_payments_is_simulating_cart', false ) ) {
+            return;
+        }
+
         foreach ( WC()->cart->removed_cart_contents as $key => $value ) {
             if ( isset( $value['forced_by'] ) && $cart_item_key === $value['forced_by'] ) {
                 WC()->cart->restore_cart_item( $key );

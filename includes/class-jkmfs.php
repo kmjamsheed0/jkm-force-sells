@@ -64,8 +64,8 @@ class JKMFS {
         add_action( $prd_display_hn, array( $public, 'jkmfs_show_force_sell_products' ), $prd_display_hp );
 
         add_action( 'woocommerce_add_to_cart', array( $public, 'jkmfs_add_force_sell_items_to_cart' ), 11, 6 );
-        add_action( 'woocommerce_after_cart_item_quantity_update', array( $public, 'jkmfs_update_force_sell_quantity_in_cart' ), 1, 2 );
-        add_action( 'woocommerce_remove_cart_item', array( $public, 'jkmfs_update_force_sell_quantity_in_cart' ), 1, 1 );
+        add_action( 'woocommerce_after_cart_item_quantity_update', array( $public, 'jkmfs_update_force_sell_quantity_in_cart' ), 1, 4 );
+        add_action( 'woocommerce_remove_cart_item', array( $public, 'jkmfs_update_force_sell_quantity_in_cart' ), 1, 2 );
         add_filter( 'woocommerce_get_cart_item_from_session', array( $public, 'jkmfs_get_cart_item_from_session' ), 10, 2 );
         add_filter( 'woocommerce_get_item_data', array( $public, 'jkmfs_get_linked_to_product_data' ), 10, 2 );
         add_action( 'woocommerce_cart_loaded_from_session', array( $public, 'jkmfs_remove_orphan_force_sells' ) );
@@ -75,8 +75,8 @@ class JKMFS {
         add_filter( 'woocommerce_store_api_product_quantity_editable', array( $public, 'jkmfs_store_api_product_quantity_editable' ), 10, 3 );
         add_filter( 'woocommerce_store_api_product_quantity_minimum', array( $public, 'jkmfs_store_api_product_quantity_limit' ), 10, 3 );
         add_filter( 'woocommerce_store_api_product_quantity_maximum', array( $public, 'jkmfs_store_api_product_quantity_limit' ), 10, 3 );
-        add_action( 'woocommerce_cart_item_removed', array( $public, 'jkmfs_cart_item_removed' ), 30 );
-        add_action( 'woocommerce_cart_item_restored', array( $public, 'jkmfs_cart_item_restored' ), 30 );
+        add_action( 'woocommerce_cart_item_removed', array( $public, 'jkmfs_cart_item_removed' ), 30, 2 );
+        add_action( 'woocommerce_cart_item_restored', array( $public, 'jkmfs_cart_item_restored' ), 30, 2 );
     }
 
     public function jkmfs_admin_menu() {
