@@ -1,15 +1,15 @@
-# Copyright (C) 2025 Jamsheed KM
+# Copyright (C) 2026 WCPlugins
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Force Sells and Smart Bundles for WooCommerce 1.1.1\n"
+"Project-Id-Version: Force Sells and Smart Bundles for WooCommerce 1.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/jkm-force-sells\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-02-09T06:47:41+00:00\n"
+"POT-Creation-Date: 2026-07-14T11:25:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: jkm-force-sells\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #. Plugin URI of the plugin
 #: jkm-force-sells.php
-msgid "https://github.com/kmjamsheed0/jkm-force-sells"
+msgid "https://wcplugins.xyz/force-sells"
 msgstr ""
 
 #. Description of the plugin
@@ -31,12 +31,12 @@ msgstr ""
 
 #. Author of the plugin
 #: jkm-force-sells.php
-msgid "Jamsheed KM"
+msgid "WCPlugins"
 msgstr ""
 
 #. Author URI of the plugin
 #: jkm-force-sells.php
-msgid "https://github.com/kmjamsheed0"
+msgid "https://wcplugins.xyz/"
 msgstr ""
 
 #: admin/class-jkmfs-admin.php:26
@@ -62,94 +62,94 @@ msgstr ""
 msgid "These products are forcefully added to the cart with the main product, and their quantity is synced with the main product."
 msgstr ""
 
-#: includes/class-jkmfs.php:81
-#: includes/class-jkmfs.php:82
-#: includes/class-jkmfs.php:90
+#: includes/class-jkmfs.php:84
+#: includes/class-jkmfs.php:85
+#: includes/class-jkmfs.php:93
 msgid "Force Sell Settings"
 msgstr ""
 
-#: includes/class-jkmfs.php:91
-msgid "Force sell products can be added through each product edit page under the Linked products tab."
-msgstr ""
-
-#: includes/class-jkmfs.php:87
+#: includes/class-jkmfs.php:90
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: includes/class-jkmfs.php:108
+#: includes/class-jkmfs.php:94
+msgid "Force sell products can be added through each product edit page under the Linked products tab."
+msgstr ""
+
+#: includes/class-jkmfs.php:112
 msgid "Display Settings"
 msgstr ""
 
-#: includes/class-jkmfs.php:115
+#: includes/class-jkmfs.php:119
 msgid "Display Position"
 msgstr ""
 
-#: includes/class-jkmfs.php:123
+#: includes/class-jkmfs.php:127
 msgid "Display Type"
 msgstr ""
 
-#: includes/class-jkmfs.php:131
+#: includes/class-jkmfs.php:135
 msgid "Show Product Images"
 msgstr ""
 
-#: includes/class-jkmfs.php:139
+#: includes/class-jkmfs.php:143
 msgid "Show Product Prices"
 msgstr ""
 
-#: includes/class-jkmfs.php:147
+#: includes/class-jkmfs.php:151
 msgid "Other Settings"
 msgstr ""
 
-#: includes/class-jkmfs.php:154
+#: includes/class-jkmfs.php:158
 msgid "Custom Message"
 msgstr ""
 
-#: includes/class-jkmfs.php:155
+#: includes/class-jkmfs.php:159
 msgid "Leave blank for the default message."
 msgstr ""
 
-#: includes/class-jkmfs.php:163
+#: includes/class-jkmfs.php:167
 msgid "Configure the display settings for force-sell products."
 msgstr ""
 
-#: includes/class-jkmfs.php:171
+#: includes/class-jkmfs.php:175
 msgid "Before Add to Cart Button"
 msgstr ""
 
-#: includes/class-jkmfs.php:172
+#: includes/class-jkmfs.php:176
 msgid "After Add to Cart Button"
 msgstr ""
 
-#: includes/class-jkmfs.php:182
+#: includes/class-jkmfs.php:186
 msgid "List View"
 msgstr ""
 
-#: includes/class-jkmfs.php:183
+#: includes/class-jkmfs.php:187
 msgid "Grid View"
 msgstr ""
 
-#: includes/class-jkmfs.php:193
+#: includes/class-jkmfs.php:197
 msgid "Show product images"
 msgstr ""
 
-#: includes/class-jkmfs.php:202
+#: includes/class-jkmfs.php:206
 msgid "Show product prices"
 msgstr ""
 
-#: includes/class-jkmfs.php:215
-#: public/class-jkmfs-public.php:64
+#: includes/class-jkmfs.php:219
+#: public/class-jkmfs-public.php:71
 msgid "The following product(s) will also be added to your cart:"
 msgstr ""
 
-#: includes/class-jkmfs.php:221
+#: includes/class-jkmfs.php:225
 msgid "Settings"
 msgstr ""
 
 #. translators: %s: Product title
-#: public/class-jkmfs-public.php:192
+#: public/class-jkmfs-public.php:203
 msgid "%s will also be removed as they're sold together."
 msgstr ""
 
-#: public/class-jkmfs-public.php:253
+#: public/class-jkmfs-public.php:284
 msgid "Linked to"
 msgstr ""
