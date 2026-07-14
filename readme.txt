@@ -1,11 +1,11 @@
 === Force Sells and Smart Bundles for WooCommerce ===
-Contributors: jamsheedkm
-Donate link: https://github.com/kmjamsheed0/
+Contributors: wcplugins, jamsheedkm
+Donate link: https://wcplugins.xyz/
 Tags: force-sells, smart-bundles, product-add-ons, automatic-add-to-cart, product-grouping
 Requires at least: 5.0
 Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,10 @@ Yes, the plugin is highly developer-friendly, providing hooks and filters to ext
 
 == Changelog ==
 
+= 1.2.1 =
+* Added: Compatibility with WooCommerce 10.9.
+* Improved: Add-to-cart compatibility on block related single-product pages.
+
 = 1.2.0 =
 * Added: Support for WooCommerce Cart and Checkout Blocks.
 * Added: WordPress Playground live preview configuration.
@@ -112,6 +116,8 @@ Yes, the plugin is highly developer-friendly, providing hooks and filters to ext
 
 == Upgrade Notice ==
 
+= 1.2.1 =
+Improves add-to-cart compatibility on single-product pages with block and express checkouts.
+
 = 1.2.0 =
 Adds WooCommerce Cart and Checkout Blocks compatibility for modern block-based cart experiences.
-
